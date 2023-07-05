@@ -14,6 +14,9 @@ module.exports = {
       },
       borderColor: { default: "#535353", active: "#F2F2F2" },
     },
+    gridTemplateColumns: {
+      cards: "repeat(auto-fit, minmax(144px, 1fr));",
+    },
   },
   plugins: [],
 };
