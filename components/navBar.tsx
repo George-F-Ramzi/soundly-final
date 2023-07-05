@@ -25,15 +25,15 @@ export default function NavBar() {
         <RiSearchLine
           height={16}
           width={16}
-          className="absolute text-para peer-valid:text-white h-4 w-4 top-[9px] left-[12px]"
+          className="absolute text-para peer-focus:text-white h-4 w-4 top-[9px] left-[12px]"
         />
       </form>
       <Image
-        className="rounded-full ml-8"
+        className="rounded-full cursor-pointer ml-8"
         height={36}
         width={36}
         alt="profile image"
-        src={"/favicon.ico"}
+        src={"/profile-pic.png"}
       />
     </nav>
   );

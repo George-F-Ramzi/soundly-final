@@ -7,6 +7,7 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundColor: { button: "#CCCCCC" },
       textColor: { white: "#F2F2F2", para: "#999999" },
       screens: {
         phone: { max: "430px" },
