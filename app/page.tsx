@@ -6,6 +6,7 @@ import { Artists, Songs } from "@/db/schema";
 import { IArtist, ISong } from "@/utils/types";
 import { eq } from "drizzle-orm";
 import SongSection from "@/components/songsSection";
+import ArtistsSection from "@/components/artistsSection";
 
 export const revalidate = 10;
 
@@ -22,7 +23,19 @@ export default async function Home() {
     })
     .from(Songs)
     .leftJoin(Artists, eq(Artists.id, Songs.artist))
-    .limit(9);
+    .limit(8);
+
+  let artists = await db
+    .select({
+      id: Artists.id,
+      name: Artists.name,
+      followers: Artists.followers,
+      following: Artists.follwoing,
+      songs: Artists.songs,
+      cover: Artists.cover,
+    })
+    .from(Artists)
+    .limit(8);
 
   return (
     <main className="text-white">
@@ -54,6 +67,10 @@ export default async function Home() {
       <SongSection
         data={discover as ISong[]}
         title={"Discover"}
+      />
+      <ArtistsSection
+        data={artists as IArtist[]}
+        title={"Popular"}
       />
     </main>
   );
