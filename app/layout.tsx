@@ -18,9 +18,7 @@ export default function RootLayout({
       className="bg-black"
       lang="en"
     >
-      <body
-        className={`${inter.className} max-w-[740px] phone:p-6 p-8 m-auto `}
-      >
+      <body className={`${inter.className} max-w-[740px] p-6 sm:p-8 m-auto `}>
         {children}
       </body>
     </html>

@@ -6,13 +6,18 @@ import React from "react";
 export default function ArtistCard({ data }: { data: IArtist }) {
   return (
     <div className="w-full flex flex-col items-center h-fit">
-      <Image
-        alt="Artist Cover"
-        height={146}
-        width={144}
-        src={data.cover}
-        className="max-w-[146px] object-cover rounded-full mb-[19px] h-[146px]"
-      />
+      <Link
+        className="block"
+        href={`artist/${data.id}`}
+      >
+        <Image
+          alt="Artist Cover"
+          height={146}
+          width={144}
+          src={data.cover}
+          className="max-w-[146px] object-cover rounded-full mb-[19px] h-[146px]"
+        />
+      </Link>
       <div>
         <Link
           href={`artist/${data.id}`}

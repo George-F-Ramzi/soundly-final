@@ -38,25 +38,26 @@ export default async function Home() {
     .limit(8);
 
   return (
-    <main className="text-white">
+    <main className="text-white mb-20">
       <NavBar />
-      <section className="h-[364px] phone:h-[219px] phone:px-6 phone:pt-8 pt-20 px-10 relative mt-8 rounded-2xl bg-[#950101]">
-        <h2 className="font-bold phone:text-xl phone:ml-0 phone:mb-2  mb-[6px] text-[40px] -ml-[2px] leading-[150%]">
-          Upcoming Stars
-          <br />
-          Upload To Soundly
-        </h2>
-        <p className="text-[#CCCCCC] phone:mb-7 mb-[51px] text-base">
-          Start Uploading Now
-        </p>
-        <Link
-          className="bg-button rounded-full  text-black font-bold inline-block text-base px-8 py-3"
-          href={"/upload"}
-        >
-          Upload
-        </Link>
+      <section className="sm:h-[364px] sm:pb-11 pb-6 h-[219px] px-6 pt-8 sm:pt-20 sm:px-10 relative mt-8 rounded-2xl bg-[#950101]">
+        <div className="flex h-full flex-col">
+          <h2 className="font-bold text-xl ml-0 mb-2  sm:mb-[6px] sm:text-[40px] sm:-ml-[2px] leading-[150%]">
+            Upcoming Stars
+            <br />
+            Upload To Soundly
+          </h2>
+          <p className="text-[#CCCCCC] grow text-base">Start Uploading Now</p>
+          <Link
+            className="bg-button rounded-full text-black font-bold w-fit text-base px-8 py-3"
+            href={"/upload"}
+          >
+            Upload
+          </Link>
+        </div>
+
         <Image
-          className="absolute phone:w-[148px] phone:h-[220px]  bottom-0 right-0 w-[247px] h-[369px]"
+          className="absolute w-[148px] h-[220px]  bottom-0 right-0 sm:w-[247px] sm:h-[369px]"
           alt="Artist Photo"
           height={369}
           width={247}

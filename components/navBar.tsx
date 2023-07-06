@@ -10,7 +10,7 @@ export default function NavBar() {
   const navigate = useRouter();
   return (
     <nav className="text-white items-center flex justify-between">
-      <h1 className="text-base mr-8 font-bold">Soundly</h1>
+      <h1 className="text-base mr-4 sm:mr-8 font-bold">Soundly</h1>
       <form
         onSubmit={() => navigate.push(`/search/${searchValue}`)}
         className="relative  hover:border-active rounded-full border-default border w-full h-9"
@@ -29,7 +29,7 @@ export default function NavBar() {
         />
       </form>
       <Image
-        className="rounded-full cursor-pointer ml-8"
+        className="rounded-full cursor-pointer ml-4 sm:ml-8"
         height={36}
         width={36}
         alt="profile image"
