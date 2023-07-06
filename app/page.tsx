@@ -1,8 +1,29 @@
 import NavBar from "@/components/navBar";
 import Image from "next/image";
 import Link from "next/link";
+import { db } from "@/db/db";
+import { Artists, Songs } from "@/db/schema";
+import { IArtist, ISong } from "@/utils/types";
+import { eq } from "drizzle-orm";
+import SongSection from "@/components/songsSection";
 
-export default function Home() {
+export const revalidate = 10;
+
+export default async function Home() {
+  let discover = await db
+    .select({
+      id: Songs.id,
+      username: Artists.name,
+      cover: Songs.cover,
+      song: Songs.song,
+      likes: Songs.likes,
+      name: Songs.name,
+      artist: Songs.artist,
+    })
+    .from(Songs)
+    .leftJoin(Artists, eq(Artists.id, Songs.artist))
+    .limit(9);
+
   return (
     <main className="text-white">
       <NavBar />
@@ -30,6 +51,10 @@ export default function Home() {
           src={"/landing-photo.png"}
         />
       </section>
+      <SongSection
+        data={discover as ISong[]}
+        title={"Discover"}
+      />
     </main>
   );
 }

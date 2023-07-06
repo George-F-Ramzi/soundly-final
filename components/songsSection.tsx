@@ -7,7 +7,7 @@ interface Prop {
   data: ISong[];
 }
 
-export default function SongSection({ title, data }: Prop) {
+export default function SongsSection({ title, data }: Prop) {
   return (
     <section className="mt-[55px]">
       <h2 className="text-white font-bold text-4xl mb-[15px] ">{title}</h2>
