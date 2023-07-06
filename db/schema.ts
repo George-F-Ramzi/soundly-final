@@ -16,7 +16,7 @@ export const Artists = mysqlTable("Artists", {
   email: varchar("email", { length: 256 }).notNull(),
   password: varchar("password", { length: 256 }),
   followers: int("followers").default(0),
-  follwoing: int("follwoing").default(0),
+  following: int("following").default(0),
   songs: int("songs").default(0),
   cover: varchar("cover", { length: 256 }).default(default_url),
 });
@@ -28,7 +28,7 @@ export const artists_relation = relations(Artists, ({ many }) => ({
   like: many(Like),
   comment: many(Comments),
   trigger: many(Notification),
-  nottifier: many(Notification),
+  notifier: many(Notification),
 }));
 
 export const Songs = mysqlTable("Songs", {
@@ -47,7 +47,7 @@ export const songs_relation = relations(Songs, ({ one, many }) => ({
   }),
   comment: many(Comments),
   like: many(Like),
-  nottification: many(Notification),
+  notification: many(Notification),
 }));
 
 export const Follower = mysqlTable(
@@ -119,7 +119,7 @@ export const like_relation = relations(Like, ({ one }) => ({
 export const Notification = mysqlTable("Notification", {
   id: serial("id").primaryKey(),
   trigger: int("trigger"),
-  nottifier: int("nottifier"),
+  notifier: int("notifier"),
   song: int("song"),
   message: varchar("message", { length: 256 }).notNull(),
 });
@@ -129,8 +129,8 @@ export const notification_relation = relations(Notification, ({ one }) => ({
     fields: [Notification.trigger],
     references: [Artists.id],
   }),
-  nottifier: one(Artists, {
-    fields: [Notification.nottifier],
+  notifier: one(Artists, {
+    fields: [Notification.notifier],
     references: [Artists.id],
   }),
   song: one(Songs, {

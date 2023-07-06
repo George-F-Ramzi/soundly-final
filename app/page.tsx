@@ -30,7 +30,7 @@ export default async function Home() {
       id: Artists.id,
       name: Artists.name,
       followers: Artists.followers,
-      following: Artists.follwoing,
+      following: Artists.following,
       songs: Artists.songs,
       cover: Artists.cover,
     })

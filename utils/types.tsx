@@ -32,7 +32,7 @@ export interface IContextJoin {
 export interface InboxCardType {
   id: number;
   trigger: number;
-  nottifier: number;
+  notifier: number;
   message: string;
   song: number;
   cover: string;
