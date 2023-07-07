@@ -61,7 +61,7 @@ export default function NavBar() {
         </button>
       ) : (
         <Image
-          className="rounded-full cursor-pointer ml-4 sm:ml-8"
+          className="rounded-full border border-default cursor-pointer ml-4 sm:ml-8"
           height={36}
           width={36}
           alt="profile image"
