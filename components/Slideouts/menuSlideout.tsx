@@ -22,24 +22,28 @@ export default function MenuSlideout({ toggle, id }: Prop) {
         </div>
         <Link
           href={`/artist/${id}`}
+          onClick={() => toggle(false)}
           className="border rounded w-full flex items-center justify-center  h-12 border-default text-white font-bold"
         >
           Profile
         </Link>
         <Link
           href={`/inbox`}
+          onClick={() => toggle(false)}
           className="border mt-4 rounded w-full flex items-center justify-center  h-12 border-default text-white font-bold"
         >
           Inbox
         </Link>
         <Link
           href={`/liked`}
+          onClick={() => toggle(false)}
           className="border mt-4 rounded w-full flex items-center justify-center  h-12 border-default text-white font-bold"
         >
           Liked
         </Link>
         <Link
           href={`/upload`}
+          onClick={() => toggle(false)}
           className="border mt-4 rounded w-full flex items-center justify-center  h-12 border-default text-white font-bold"
         >
           Upload

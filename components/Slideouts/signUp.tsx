@@ -2,6 +2,7 @@
 
 import TokenContext from "@/utils/tokenContext";
 import { ITokenContext } from "@/utils/types";
+import { getCookie, setCookie } from "cookies-next";
 import React, { useContext, useState } from "react";
 
 let token =
@@ -32,8 +33,12 @@ export default function SignUp({ toggle }: Prop) {
 
     let token = res.headers.get("x-auth-token");
     if (token != null) {
-      localStorage.setItem("token", token);
-      setToken && setToken(token);
+      const date = new Date();
+      date.setTime(date.getTime() + 10 * 24 * 60 * 60 * 1000);
+      date.toUTCString();
+      setCookie("token", token, { expires: date });
+      let savedToken = getCookie("token");
+      setToken && setToken(savedToken as string);
       setShow && setShow(false);
     } else {
       let message = (await res.text()).toLowerCase();
@@ -141,7 +146,12 @@ export default function SignUp({ toggle }: Prop) {
         </p>
         <div
           onClick={() => {
-            localStorage.setItem("token", token);
+            const date = new Date();
+            date.setTime(date.getTime() + 10 * 24 * 60 * 60 * 1000);
+            date.toUTCString();
+            setCookie("token", token, { expires: date });
+            let savedToken = getCookie("token");
+            setToken && setToken(savedToken as string);
             setShow && setShow(false);
           }}
           className="w-full cursor-pointer flex items-center justify-center border border-default bg-transparent h-12 rounded text-base  text-white font-bold"

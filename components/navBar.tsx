@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { RiSearchLine } from "react-icons/ri";
 import MenuSlideout from "./Slideouts/menuSlideout";
+import Link from "next/link";
 
 export default function NavBar() {
   const [searchValue, setSearchValue] = useState("");
@@ -36,7 +37,12 @@ export default function NavBar() {
 
   return (
     <nav className="text-white items-center flex justify-between">
-      <h1 className="text-base mr-4 sm:mr-8 font-bold">Soundly</h1>
+      <Link
+        href="/"
+        className="text-base block mr-4 sm:mr-8 font-bold"
+      >
+        Soundly
+      </Link>
       <form
         onSubmit={() => navigate.push(`/search/${searchValue}`)}
         className="relative  hover:border-active rounded-full border-default border w-full h-9"
@@ -54,7 +60,7 @@ export default function NavBar() {
           className="absolute text-para peer-focus:text-white h-4 w-4 top-[9px] left-[12px]"
         />
       </form>
-      {!token && !Data ? (
+      {!Data ? (
         <button
           onClick={() => setShow && setShow(true)}
           className="bg-button ml-4 sm:ml-8 rounded-full h-9 text-black px-6 text-sm text-center font-bold"
@@ -73,7 +79,7 @@ export default function NavBar() {
       )}
       {toggle ? (
         <MenuSlideout
-          id={Data?.id}
+          id={String(Data?.id!)}
           toggle={setToggle}
         />
       ) : (
