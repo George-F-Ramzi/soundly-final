@@ -3,7 +3,6 @@
 import TokenContext from "@/utils/tokenContext";
 import { IArtist } from "@/utils/types";
 import { ReactNode, useEffect, useState } from "react";
-import { getCookie } from "cookies-next";
 import JoinSlideout from "./Slideouts/joinSlideout";
 
 export default function TokenProvider({ children }: { children: ReactNode }) {
@@ -12,8 +11,9 @@ export default function TokenProvider({ children }: { children: ReactNode }) {
   const [me, setMe] = useState<IArtist>();
 
   useEffect(() => {
-    let token = getCookie("token");
-    if (token) setToken(String(token));
+    let token = localStorage.getItem("token");
+    if (token && token !== "") setToken(token);
+    else setToken(undefined);
   }, []);
 
   return (
