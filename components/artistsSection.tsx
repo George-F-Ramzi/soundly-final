@@ -1,7 +1,7 @@
-import NothingHere from "@/utils/nothing";
 import { IArtist } from "@/utils/types";
 import React from "react";
 import ArtistCard from "./Cards/artistCard";
+import NothingHere from "./nothing";
 
 interface Prop {
   title: String;

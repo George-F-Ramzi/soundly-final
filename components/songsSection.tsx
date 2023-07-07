@@ -1,6 +1,6 @@
 import { ISong } from "@/utils/types";
-import NothingHere from "@/utils/nothing";
 import SongCard from "./Cards/songCard";
+import NothingHere from "./nothing";
 
 interface Prop {
   title: String;
