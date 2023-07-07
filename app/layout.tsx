@@ -2,6 +2,7 @@ import NavBar from "@/components/navBar";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import TokenProvider from "@/components/tokenProvider";
+import NextTopLoader from "nextjs-toploader";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
       <body className={`${inter.className} max-w-[740px] p-6 sm:p-8 m-auto `}>
         <TokenProvider>
           <NavBar />
+          <NextTopLoader />
           {children}
         </TokenProvider>
       </body>
