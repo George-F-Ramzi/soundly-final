@@ -1,16 +1,36 @@
 "use client";
 
 import TokenContext from "@/utils/tokenContext";
-import { ITokenContext } from "@/utils/types";
+import { IArtist, ITokenContext } from "@/utils/types";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { RiSearchLine } from "react-icons/ri";
 
 export default function NavBar() {
   const [searchValue, setSearchValue] = useState("");
   const navigate = useRouter();
-  const { token, setShow }: ITokenContext = useContext(TokenContext);
+  const [Data, setData] = useState<IArtist>();
+  const { token, setShow, setMe }: ITokenContext = useContext(TokenContext);
+
+  useEffect(() => {
+    if (!token && token === "") return;
+    const api = async () => {
+      let Res = await fetch("http://localhost:3000/api/me", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": token!,
+        },
+      });
+      if (!Res.ok) throw Error;
+
+      let data: IArtist = await Res.json();
+      setMe && setMe(data);
+      setData(data);
+    };
+    api();
+  }, [token, setMe]);
 
   return (
     <nav className="text-white items-center flex justify-between">
@@ -32,7 +52,7 @@ export default function NavBar() {
           className="absolute text-para peer-focus:text-white h-4 w-4 top-[9px] left-[12px]"
         />
       </form>
-      {!token ? (
+      {!token && !Data ? (
         <button
           onClick={() => setShow && setShow(true)}
           className="bg-button ml-4 sm:ml-8 rounded-full h-9 text-black px-6 text-sm text-center font-bold"
@@ -45,7 +65,7 @@ export default function NavBar() {
           height={36}
           width={36}
           alt="profile image"
-          src={"/profile-pic.png"}
+          src={Data?.cover!}
         />
       )}
     </nav>
