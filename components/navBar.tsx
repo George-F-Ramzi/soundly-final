@@ -6,12 +6,14 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { RiSearchLine } from "react-icons/ri";
+import MenuSlideout from "./Slideouts/menuSlideout";
 
 export default function NavBar() {
   const [searchValue, setSearchValue] = useState("");
   const navigate = useRouter();
   const [Data, setData] = useState<IArtist>();
   const { token, setShow, setMe }: ITokenContext = useContext(TokenContext);
+  const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
     if (!token && token === "") return;
@@ -61,12 +63,21 @@ export default function NavBar() {
         </button>
       ) : (
         <Image
+          onClick={() => setToggle(true)}
           className="rounded-full border border-default cursor-pointer ml-4 sm:ml-8"
           height={36}
           width={36}
           alt="profile image"
           src={Data?.cover!}
         />
+      )}
+      {toggle ? (
+        <MenuSlideout
+          id={Data?.id}
+          toggle={setToggle}
+        />
+      ) : (
+        ""
       )}
     </nav>
   );
