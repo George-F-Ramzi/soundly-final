@@ -21,7 +21,7 @@ export interface IContextPlayer {
   setSong?: (song: ISong) => void;
 }
 
-export interface IContextJoin {
+export interface ITokenContext {
   setShow?: (value: boolean) => void;
   setToken?: (value: string) => void;
   setMe?: (value: IArtist) => void;

@@ -8,6 +8,7 @@ import { RiSearchLine } from "react-icons/ri";
 export default function NavBar() {
   const [searchValue, setSearchValue] = useState("");
   const navigate = useRouter();
+
   return (
     <nav className="text-white items-center flex justify-between">
       <h1 className="text-base mr-4 sm:mr-8 font-bold">Soundly</h1>
