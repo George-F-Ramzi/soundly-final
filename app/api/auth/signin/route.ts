@@ -10,8 +10,8 @@ export async function POST(req: Request) {
   let data = await req.json();
 
   const schema: Schema = Joi.object({
-    email: Joi.string().email().required().min(8).max(56).label("Email"),
-    password: Joi.string().required().min(8).max(56).label("Password"),
+    email: Joi.string().email().required().min(8).max(120).label("Email"),
+    password: Joi.string().required().min(8).max(120).label("Password"),
   });
   const { error } = schema.validate(data);
   if (error) return new Response(error.message, { status: 400 });
