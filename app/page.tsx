@@ -1,4 +1,3 @@
-import NavBar from "@/components/navBar";
 import Image from "next/image";
 import Link from "next/link";
 import { db } from "@/db/db";
@@ -39,7 +38,6 @@ export default async function Home() {
 
   return (
     <main className="text-white mb-20">
-      <NavBar />
       <section className="sm:h-[364px] sm:pb-11 pb-6 h-[219px] px-6 pt-8 sm:pt-20 sm:px-10 relative mt-8 rounded-2xl bg-[#950101]">
         <div className="flex h-full flex-col">
           <h2 className="font-bold text-xl ml-0 mb-2  sm:mb-[6px] sm:text-[40px] sm:-ml-[2px] leading-[150%]">
