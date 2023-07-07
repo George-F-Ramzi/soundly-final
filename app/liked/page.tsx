@@ -6,6 +6,8 @@ import { eq } from "drizzle-orm";
 import { jwtVerify } from "jose";
 import { cookies } from "next/headers";
 
+export const revalidate = 0;
+
 export default async function Liked() {
   const cookie = cookies();
   let token = cookie.get("token");
