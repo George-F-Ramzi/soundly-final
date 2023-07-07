@@ -20,8 +20,8 @@ export default function TokenProvider({ children }: { children: ReactNode }) {
     <div>
       <TokenContext.Provider value={{ setShow, token, setToken, setMe, me }}>
         {children}
+        {show ? <JoinSlideout /> : ""}
       </TokenContext.Provider>
-      {show ? <JoinSlideout /> : ""}
     </div>
   );
 }
