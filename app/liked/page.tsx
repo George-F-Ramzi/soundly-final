@@ -1,11 +1,41 @@
 import SongsSection from "@/components/songsSection";
-import { headers, cookies } from "next/headers";
+import { db } from "@/db/db";
+import { Artists, Like, Songs } from "@/db/schema";
+import { ISong } from "@/utils/types";
+import { eq } from "drizzle-orm";
+import { jwtVerify } from "jose";
+import { cookies } from "next/headers";
 
-export default function Liked() {
-  const headersList = headers();
-  const re = cookies();
-  console.log(re);
-  const referer = headersList.get("x-auth-token");
+export default async function Liked() {
+  const cookie = cookies();
+  let token = cookie.get("token");
+  let { payload } = await jwtVerify(
+    token?.value!,
+    new TextEncoder().encode(process.env.JWT_PASS)
+  );
+  let id = Number(payload.id);
 
-  return <div className="text-white">{referer}sdfds</div>;
+  let songs = await db
+    .select({
+      id: Songs.id,
+      username: Artists.name,
+      cover: Songs.cover,
+      song: Songs.song,
+      likes: Songs.likes,
+      name: Songs.name,
+      artist: Songs.artist,
+    })
+    .from(Like)
+    .where(eq(Like.artist, id))
+    .leftJoin(Songs, eq(Songs.id, Like.song))
+    .leftJoin(Artists, eq(Artists.id, Songs.artist));
+
+  return (
+    <div>
+      <SongsSection
+        data={songs as ISong[]}
+        title={"Liked Songs"}
+      />
+    </div>
+  );
 }
