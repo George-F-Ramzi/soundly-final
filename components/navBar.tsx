@@ -70,7 +70,7 @@ export default function NavBar() {
       ) : (
         <Image
           onClick={() => setToggle(true)}
-          className="rounded-full border border-default cursor-pointer ml-4 sm:ml-8"
+          className="rounded-full border min-w-[36px] h-9 border-default cursor-pointer ml-4 sm:ml-8"
           height={36}
           width={36}
           alt="profile image"

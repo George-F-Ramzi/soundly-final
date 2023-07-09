@@ -24,7 +24,7 @@ export default function RootLayout({
       <body className={`${inter.className} max-w-[740px] p-6 sm:p-8 m-auto `}>
         <TokenProvider>
           <NavBar />
-          <NextTopLoader />
+          <NextTopLoader showSpinner={false} />
           {children}
         </TokenProvider>
       </body>

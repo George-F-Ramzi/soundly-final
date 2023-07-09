@@ -5,7 +5,7 @@ import React from "react";
 
 export default function SongCard({ data }: { data: ISong }) {
   return (
-    <div className="w-full h-fit">
+    <div className="max-w-[206px] h-fit">
       <Image
         alt="Song Cover"
         height={146}

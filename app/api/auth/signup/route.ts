@@ -4,7 +4,8 @@ import hashing from "bcrypt";
 import { db } from "@/db/db";
 import { Artists } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import * as jose from "jose";
+import { SignJWT } from "jose";
+import { nanoid } from "nanoid";
 
 export async function POST(req: Request) {
   let data = await req.json();
@@ -38,8 +39,11 @@ export async function POST(req: Request) {
       password: hashed_pass,
     });
 
-    let token = await new jose.SignJWT({ id: inserted.insertId })
+    let token = await new SignJWT({ id: inserted.insertId })
       .setProtectedHeader({ alg: "HS256" })
+      .setJti(nanoid())
+      .setIssuedAt()
+      .setExpirationTime("10d")
       .sign(new TextEncoder().encode(process.env.JWT_PASS));
 
     return NextResponse.json("Done", {

@@ -3,11 +3,13 @@ import { db } from "@/db/db";
 import { Artists } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { jwtVerify } from "jose";
+import { cookies } from "next/headers";
 
 export async function GET(req: Request) {
-  let token = req.headers.get("x-auth-token");
+  let cookie = cookies();
+  let token = cookie.get("token");
   let { payload } = await jwtVerify(
-    token!,
+    token?.value!,
     new TextEncoder().encode(process.env.JWT_PASS)
   );
   let id = Number(payload.id);

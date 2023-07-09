@@ -4,9 +4,6 @@ import { db } from "@/db/db";
 import { Artists, Songs } from "@/db/schema";
 import { IArtist, ISong } from "@/utils/types";
 import { eq, like } from "drizzle-orm";
-import React from "react";
-
-export const fetchCache = "default-no-store";
 
 interface Prop {
   params: { value: string };

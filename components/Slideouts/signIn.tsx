@@ -6,7 +6,7 @@ import { getCookie, setCookie } from "cookies-next";
 import React, { useContext, useState } from "react";
 
 let token =
-  "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MTB9.Dn3_y6H5wfQVqwVPjHO229J3kDOmovC2xk19WYnCX5Y";
+  "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MTAsImp0aSI6IkhwdHJSdlJOMS1ZSnBPU1EwZl9tVCIsImlhdCI6MTY4ODkxMzYzMywiZXhwIjoxNjg5Nzc3NjMzfQ.x1axfgkuJn53wKb89S6TbzwWUgmTSyz6Yg36Z3ubTEg";
 
 interface Prop {
   toggle: (value: boolean) => void;
