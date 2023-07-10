@@ -3,6 +3,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import TokenProvider from "@/components/tokenProvider";
 import NextTopLoader from "nextjs-toploader";
+import PlayerProvider from "@/components/playerProvider";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
 
@@ -25,7 +26,7 @@ export default function RootLayout({
         <TokenProvider>
           <NavBar />
           <NextTopLoader showSpinner={false} />
-          {children}
+          <PlayerProvider>{children}</PlayerProvider>
         </TokenProvider>
       </body>
     </html>
