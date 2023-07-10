@@ -1,10 +1,12 @@
-import CommentCard from "@/components/Cards/commentCard";
-import NothingHere from "@/components/nothing";
+import UnComments from "@/components/UnAuthorized/UnComments";
+import AUComments from "@/components/comments";
 import { db } from "@/db/db";
 import { Artists, Comments, Songs } from "@/db/schema";
 import { IComment } from "@/utils/types";
 import { eq } from "drizzle-orm";
+import { jwtVerify } from "jose";
 import { Metadata } from "next";
+import { cookies } from "next/headers";
 import Image from "next/image";
 import React from "react";
 
@@ -30,6 +32,19 @@ export async function generateMetadata({
 
 export default async function Song({ params }: { params: { id: string } }) {
   let { id } = params;
+  let authorized = false;
+
+  try {
+    let cookie = cookies();
+    let token = cookie.get("token");
+    await jwtVerify(
+      token?.value!,
+      new TextEncoder().encode(process.env.JWT_PASS)
+    );
+    authorized = true;
+  } catch (error) {
+    authorized = false;
+  }
 
   let song = await db
     .select({
@@ -91,20 +106,13 @@ export default async function Song({ params }: { params: { id: string } }) {
         </div>
       </section>
       <h2 className="text-white mt-[55px] font-bold text-4xl">Comments</h2>
-      <div className="h-14 mt-4 mb-8 hover:border-active px-6 flex items-center text-para border border-default rounded-full">
-        What`s in your mind?
-      </div>
-      {Array.isArray(comments) && comments.length ? (
-        comments.map((c, i) => {
-          return (
-            <CommentCard
-              key={i}
-              data={c as IComment}
-            />
-          );
-        })
+      {!authorized ? (
+        <UnComments comments={comments as IComment[]} />
       ) : (
-        <NothingHere />
+        <AUComments
+          id={song[0].id!}
+          comments={comments as IComment[]}
+        />
       )}
     </div>
   );
