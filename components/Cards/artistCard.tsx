@@ -5,7 +5,7 @@ import React from "react";
 
 export default function ArtistCard({ data }: { data: IArtist }) {
   return (
-    <div className="w-full flex flex-col items-center h-fit">
+    <div className="max-w-[146px] flex flex-col items-center h-fit">
       <Link
         className="block"
         href={`artist/${data.id}`}

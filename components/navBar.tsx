@@ -17,13 +17,12 @@ export default function NavBar() {
   const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
-    if (!token && token === "") return;
+    if (!token) return;
     const api = async () => {
       let Res = await fetch("https://soundly-peach.vercel.app/api/me", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "x-auth-token": token!,
         },
       });
       if (!Res.ok) throw Error;
@@ -44,7 +43,10 @@ export default function NavBar() {
         Soundly
       </Link>
       <form
-        onSubmit={() => navigate.push(`/search/${searchValue}`)}
+        onSubmit={(e) => {
+          e.preventDefault();
+          navigate.push(`/search/${searchValue}`);
+        }}
         className="relative  hover:border-active rounded-full border-default border w-full h-9"
       >
         <input
