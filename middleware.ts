@@ -21,8 +21,6 @@ export const config = {
     "/api/me",
     "/api/follow/:path*",
     "/api/unfollow/:path*",
-    "/api/followed/:path*",
-    "/api/isliked/:path*",
     "/api/like/:path*",
     "/api/dislike/:path*",
     "/api/comment/:path*",

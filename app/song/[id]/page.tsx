@@ -1,9 +1,11 @@
+import AuComments from "@/components/Authorized/AuComments";
+import AuLike from "@/components/Authorized/AuLike";
 import UnComments from "@/components/UnAuthorized/UnComments";
-import AUComments from "@/components/comments";
+import UnLike from "@/components/UnAuthorized/UnLike";
 import { db } from "@/db/db";
-import { Artists, Comments, Songs } from "@/db/schema";
+import { Artists, Comments, Like, Songs } from "@/db/schema";
 import { IComment } from "@/utils/types";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { jwtVerify } from "jose";
 import { Metadata } from "next";
 import { cookies } from "next/headers";
@@ -33,17 +35,29 @@ export async function generateMetadata({
 export default async function Song({ params }: { params: { id: string } }) {
   let { id } = params;
   let authorized = false;
+  let user = 0;
+  let liked = false;
 
   try {
     let cookie = cookies();
     let token = cookie.get("token");
-    await jwtVerify(
+    let { payload } = await jwtVerify(
       token?.value!,
       new TextEncoder().encode(process.env.JWT_PASS)
     );
+    user = Number(payload.id);
     authorized = true;
   } catch (error) {
     authorized = false;
+  }
+  if (authorized) {
+    let isLiked = await db
+      .select()
+      .from(Like)
+      .where(and(eq(Like.artist, user), eq(Like.song, Number(id))));
+
+    if (isLiked.length === 0) liked = false;
+    else liked = true;
   }
 
   let song = await db
@@ -99,9 +113,14 @@ export default async function Song({ params }: { params: { id: string } }) {
             <button className="px-10 py-2 rounded-full sm:px-12 sm:py-4 text-black font-bold bg-button">
               Play
             </button>
-            <button className="px-10 py-2 border ml-4 sm:ml-5 border-default rounded-full sm:px-12 sm:py-4 text-white font-bold bg-transparent">
-              Like
-            </button>
+            {!authorized ? (
+              <UnLike />
+            ) : (
+              <AuLike
+                id={song[0].id!}
+                liked={liked}
+              />
+            )}
           </div>
         </div>
       </section>
@@ -109,7 +128,7 @@ export default async function Song({ params }: { params: { id: string } }) {
       {!authorized ? (
         <UnComments comments={comments as IComment[]} />
       ) : (
-        <AUComments
+        <AuComments
           id={song[0].id!}
           comments={comments as IComment[]}
         />

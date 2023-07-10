@@ -2,16 +2,16 @@
 
 import TokenContext from "@/utils/tokenContext";
 import { IComment, ITokenContext } from "@/utils/types";
-import React, { useContext, useEffect, useState } from "react";
-import CommentCard from "./Cards/commentCard";
-import NothingHere from "./nothing";
+import { useContext, useEffect, useState } from "react";
+import CommentCard from "../Cards/commentCard";
+import NothingHere from "../nothing";
 
 interface Prop {
   comments: IComment[];
   id: number;
 }
 
-export default function AUComments({ comments, id }: Prop) {
+export default function AuComments({ comments, id }: Prop) {
   const { me }: ITokenContext = useContext(TokenContext);
   const [data, setData] = useState<IComment[]>([]);
   const [IValue, setInput] = useState("");
