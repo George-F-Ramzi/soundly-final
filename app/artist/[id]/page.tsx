@@ -1,9 +1,13 @@
+import AuFollow from "@/components/Authorized/AuFollow";
+import UnFollow from "@/components/UnAuthorized/UnFollow";
 import SongsSection from "@/components/songsSection";
 import { db } from "@/db/db";
-import { Artists, Songs } from "@/db/schema";
+import { Artists, Follower, Songs } from "@/db/schema";
 import { ISong } from "@/utils/types";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
+import { jwtVerify } from "jose";
 import { Metadata } from "next";
+import { cookies } from "next/headers";
 import Image from "next/image";
 import React from "react";
 
@@ -28,6 +32,32 @@ export async function generateMetadata({ params }: Prop): Promise<Metadata> {
 
 export default async function Artist({ params }: Prop) {
   let { id } = params;
+  let authorized = false;
+  let user = 0;
+  let followed = false;
+
+  try {
+    let cookie = cookies();
+    let token = cookie.get("token");
+    let { payload } = await jwtVerify(
+      token?.value!,
+      new TextEncoder().encode(process.env.JWT_PASS)
+    );
+    user = Number(payload.id);
+    authorized = true;
+  } catch (error) {
+    authorized = false;
+  }
+
+  if (authorized) {
+    let isFollowed = await db
+      .select()
+      .from(Follower)
+      .where(and(eq(Follower.artist, user), eq(Follower.fan, Number(id))));
+
+    if (isFollowed.length === 0) followed = false;
+    else followed = true;
+  }
 
   let artist = await db
     .select({
@@ -83,9 +113,14 @@ export default async function Artist({ params }: Prop) {
               {artist[0].songs!} Songs
             </p>
           </div>
-          <button className="px-10 py-2 rounded-full sm:px-12 sm:py-4 text-black font-bold bg-button">
-            Follow
-          </button>
+          {!authorized ? (
+            <UnFollow />
+          ) : (
+            <AuFollow
+              followed={followed}
+              id={Number(id)}
+            />
+          )}
         </div>
       </section>
       <SongsSection
