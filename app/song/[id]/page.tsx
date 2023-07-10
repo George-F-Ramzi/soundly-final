@@ -2,9 +2,10 @@ import AuComments from "@/components/Authorized/AuComments";
 import AuLike from "@/components/Authorized/AuLike";
 import UnComments from "@/components/UnAuthorized/UnComments";
 import UnLike from "@/components/UnAuthorized/UnLike";
+import Play from "@/components/play";
 import { db } from "@/db/db";
 import { Artists, Comments, Like, Songs } from "@/db/schema";
-import { IComment } from "@/utils/types";
+import { IComment, ISong } from "@/utils/types";
 import { and, eq } from "drizzle-orm";
 import { jwtVerify } from "jose";
 import { Metadata } from "next";
@@ -110,9 +111,7 @@ export default async function Song({ params }: { params: { id: string } }) {
             </p>
           </div>
           <div className="flex -ml-[5px] sm:ml-[5px]">
-            <button className="px-10 py-2 rounded-full sm:px-12 sm:py-4 text-black font-bold bg-button">
-              Play
-            </button>
+            <Play song={song[0] as ISong} />
             {!authorized ? (
               <UnLike />
             ) : (
