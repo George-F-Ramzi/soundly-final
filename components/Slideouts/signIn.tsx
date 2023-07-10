@@ -22,7 +22,7 @@ export default function SignIn({ toggle }: Prop) {
     let password: FormDataEntryValue = form.get("password")!;
 
     let data = { email, password };
-    let res = await fetch(`http://localhost:3000/api/auth/signin`, {
+    let res = await fetch(`https://soundly-peach.vercel.app/api/auth/signin`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -39,6 +39,7 @@ export default function SignIn({ toggle }: Prop) {
       let savedToken = getCookie("token");
       setToken && setToken(savedToken as string);
       setShow && setShow(false);
+      window.location.reload();
     } else {
       let message = (await res.text()).toLowerCase();
       setError(message);
@@ -131,6 +132,7 @@ export default function SignIn({ toggle }: Prop) {
             let savedToken = getCookie("token");
             setToken && setToken(savedToken as string);
             setShow && setShow(false);
+            window.location.reload();
           }}
           className="w-full cursor-pointer flex items-center justify-center border border-default bg-transparent h-12 rounded text-base  text-white font-bold"
         >
