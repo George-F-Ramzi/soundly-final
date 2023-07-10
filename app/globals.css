@@ -2,3 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
+.rhap_container {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  padding: 0;
+}
+
+.rhap_time {
+  color: white !important;
+}
+
+.rhap_progress-bar {
+  background-color: black !important;
+}
+
+.rhap_progress-indicator {
+  background-color: white !important;
+}
+
+.rhap_progress-filled {
+  background-color: white !important;
+}
+
+.rhap_play-pause-button {
+  color: white !important;
+}
+
+.rhap_repeat-button {
+  color: white !important;
+}
+
+.rhap_volume-indicator {
+  background-color: white !important;
+}
+
+.rhap_volume-bar {
+  background-color: white !important;
+}
+
+.rhap_volume-button {
+  color: white !important;
+}
+
+@media screen and (max-width: 640px) {
+  .rhap_volume-container {
+    display: none;
+  }
+}
