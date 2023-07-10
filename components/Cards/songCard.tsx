@@ -20,7 +20,7 @@ export default function SongCard({ data }: { data: ISong }) {
       />
       <div>
         <Link
-          href={`song/${data.id}`}
+          href={`/song/${data.id}`}
           className="text-xl block font-bold text-center text-white"
         >
           {data.name}

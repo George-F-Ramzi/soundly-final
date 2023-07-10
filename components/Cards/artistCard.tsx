@@ -8,7 +8,7 @@ export default function ArtistCard({ data }: { data: IArtist }) {
     <div className="max-w-[146px] flex flex-col items-center h-fit">
       <Link
         className="block"
-        href={`artist/${data.id}`}
+        href={`/artist/${data.id}`}
       >
         <Image
           alt="Artist Cover"
