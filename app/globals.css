@@ -60,8 +60,18 @@
   z-index: 100 !important;
 }
 
-.input-field > div input {
+.input-field > div label {
+  position: absolute !important;
   width: 100% !important;
   height: 56px !important;
+  z-index: 100 !important;
   cursor: pointer;
+}
+
+.input-field > div label span {
+  display: none;
+}
+
+.input-field > div > div {
+  display: none;
 }
