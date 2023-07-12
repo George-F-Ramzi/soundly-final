@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import { RiFileMusicLine, RiImageLine, RiLoader2Fill } from "react-icons/ri";
 import { UploadButton } from "@/utils/uploadthing";
+import UploadButtonUI from "@/components/UI/uploadButton";
 
 export default function Upload() {
   const { token, setShow }: ITokenContext = useContext(TokenContext);
@@ -39,6 +40,7 @@ export default function Upload() {
       let { id } = await res.json();
       navigate.push(`/artist/${id}`);
     } catch (error) {
+      setUploading(false);
       throw Error;
     }
   };
@@ -80,7 +82,7 @@ export default function Upload() {
             }}
           />
           {!loadingAudio ? (
-            <section className="flex w-full h-full items-center px-6">
+            <section className="flex w-full h-14 items-center px-6">
               <p
                 className={`font-medium h-full w-full ${
                   audio ? "" : "pt-4"
@@ -118,7 +120,7 @@ export default function Upload() {
             }}
           />
           {!loadingImage ? (
-            <section className="flex relative w-full h-full items-center px-6">
+            <section className="flex relative w-full h-14 items-center px-6">
               <p
                 className={`font-medium h-full w-full ${
                   image ? "" : "pt-4"
@@ -141,26 +143,11 @@ export default function Upload() {
             </span>
           )}
         </div>
-        <div className="flex flex-row-reverse mt-10">
-          {audio && image ? (
-            <button
-              disabled={uploading}
-              type="submit"
-              className="px-12 py-4 font-bold bg-button rounded-full"
-            >
-              {uploading ? (
-                <RiLoader2Fill
-                  size={24}
-                  className="animate-spin"
-                />
-              ) : (
-                "Upload"
-              )}
-            </button>
-          ) : (
-            ""
-          )}
-        </div>
+        <UploadButtonUI
+          audio={audio}
+          image={image}
+          uploading={uploading}
+        />
       </form>
     </div>
   );
