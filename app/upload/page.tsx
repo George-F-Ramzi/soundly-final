@@ -36,7 +36,7 @@ export default function Upload() {
         body: JSON.stringify(data),
       });
       setUploading(false);
-      let id = await res.json();
+      let { id } = await res.json();
       navigate.push(`/artist/${id}`);
     } catch (error) {
       throw Error;

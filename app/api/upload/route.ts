@@ -3,6 +3,7 @@ import { Artists, Songs, Notification, Follower } from "@/db/schema";
 import { eq, sql } from "drizzle-orm";
 import { jwtVerify } from "jose";
 import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
 
 interface IBody {
   name: string;
@@ -47,7 +48,7 @@ export async function POST(req: Request) {
 
     await db.insert(Notification).values(notification_data);
 
-    return new Response("Done", { status: 200 });
+    return NextResponse.json({ id });
   } catch (error) {
     return new Response("Something Wrong Happen" + error, { status: 400 });
   }
