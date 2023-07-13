@@ -21,13 +21,13 @@ export default function SongCard({ data }: { data: ISong }) {
       <div>
         <Link
           href={`/song/${data.id}`}
-          className="text-xl block font-bold text-center text-white"
+          className="text-2xl sm:text-xl leading-[200%] sm:leading-normal block font-bold text-center text-white"
         >
           {data.name}
         </Link>
         <Link
           href={`artist/${data.artist}`}
-          className="text-xs block font-medium text-center text-para"
+          className="text-xl sm:text-xs leading-[240%] sm:leading-normal  block font-medium text-center text-para"
         >
           {data.username}
         </Link>

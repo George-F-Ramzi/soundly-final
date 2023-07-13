@@ -21,11 +21,11 @@ export default function ArtistCard({ data }: { data: IArtist }) {
       <div>
         <Link
           href={`artist/${data.id}`}
-          className="text-xl block font-bold text-center text-white"
+          className="text-2xl sm:text-xl  leading-[200%] sm:leading-normal block font-bold text-center text-white"
         >
           {data.name}
         </Link>
-        <p className="text-xs  font-medium text-center text-para">
+        <p className="text-xl sm:text-xs  font-medium text-center text-para">
           {data.followers}: followers
         </p>
       </div>

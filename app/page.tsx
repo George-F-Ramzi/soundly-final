@@ -59,8 +59,10 @@ export default async function Home() {
           alt="Artist Photo"
           height={369}
           width={247}
-          quality={100}
-          src={"/landing-photo.png"}
+          priority
+          src={
+            "https://res.cloudinary.com/dwnvkwrox/image/upload/v1689220987/Pexels_Photo_by_Niko_MonD%C3%AC_dg2z5w.png"
+          }
         />
       </section>
       <SongSection
