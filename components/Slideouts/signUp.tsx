@@ -1,12 +1,15 @@
 "use client";
 
+import HandleSignIn from "@/utils/handleSignIn";
+import HandleSignUp from "@/utils/handleSignUp";
 import TokenContext from "@/utils/tokenContext";
 import { ITokenContext } from "@/utils/types";
-import { getCookie, setCookie } from "cookies-next";
 import React, { useContext, useState } from "react";
 
-let token =
-  "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MTAsImp0aSI6IkhwdHJSdlJOMS1ZSnBPU1EwZl9tVCIsImlhdCI6MTY4ODkxMzYzMywiZXhwIjoxNjg5Nzc3NjMzfQ.x1axfgkuJn53wKb89S6TbzwWUgmTSyz6Yg36Z3ubTEg";
+let user = {
+  email: "demo@email.com",
+  password: "12345678",
+};
 
 interface Prop {
   toggle: (value: boolean) => void;
@@ -17,44 +20,15 @@ export default function SignUp({ toggle }: Prop) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (form: FormData) => {
-    let username: FormDataEntryValue = form.get("username")!;
-    let email: FormDataEntryValue = form.get("email")!;
-    let password: FormDataEntryValue = form.get("password")!;
-
-    let data = { username, email, password };
-    let res = await fetch(`https://soundly-peach.vercel.app/api/auth/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-
-    let token = res.headers.get("x-auth-token");
-    if (token != null) {
-      const date = new Date();
-      date.setTime(date.getTime() + 10 * 24 * 60 * 60 * 1000);
-      date.toUTCString();
-      setCookie("token", token, { expires: date });
-      let savedToken = getCookie("token");
-      setToken && setToken(savedToken as string);
-      setShow && setShow(false);
-      window.location.reload();
-    } else {
-      let message = (await res.text()).toLowerCase();
-      setError(message);
-      setLoading(false);
-    }
-  };
-
   return (
     <form
-      onSubmit={(e) => {
+      onSubmit={async (e) => {
         e.preventDefault();
         setLoading(true);
         let form: FormData = new FormData(e.currentTarget);
-        handleSubmit(form);
+        if (setShow !== undefined && setToken !== undefined) {
+          await HandleSignUp({ form, setError, setLoading, setShow, setToken });
+        }
       }}
       className="w-ful h-[96%]"
     >
@@ -146,15 +120,19 @@ export default function SignUp({ toggle }: Prop) {
           </span>
         </p>
         <div
-          onClick={() => {
-            const date = new Date();
-            date.setTime(date.getTime() + 10 * 24 * 60 * 60 * 1000);
-            date.toUTCString();
-            setCookie("token", token, { expires: date });
-            let savedToken = getCookie("token");
-            setToken && setToken(savedToken as string);
-            setShow && setShow(false);
-            window.location.reload();
+          onClick={async () => {
+            let form = new FormData();
+            form.append("email", user.email);
+            form.append("password", user.password);
+            if (setShow !== undefined && setToken !== undefined) {
+              await HandleSignIn({
+                form,
+                setError,
+                setLoading,
+                setShow,
+                setToken,
+              });
+            }
           }}
           className="w-full cursor-pointer flex items-center justify-center border border-default bg-transparent h-12 rounded text-base  text-white font-bold"
         >
