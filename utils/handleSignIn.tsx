@@ -1,4 +1,7 @@
+"use client";
+
 import { getCookie, setCookie } from "cookies-next";
+import Joi, { Schema } from "joi";
 
 interface Prop {
   setError: (value: string) => void;
@@ -19,6 +22,23 @@ export default async function HandleSignIn({
   let password: FormDataEntryValue = form.get("password")!;
 
   let data = { email, password };
+
+  const schema: Schema = Joi.object({
+    email: Joi.string()
+      .email({ tlds: { allow: false } })
+      .required()
+      .min(8)
+      .max(120)
+      .label("Email"),
+    password: Joi.string().required().min(8).max(120).label("Password"),
+  });
+  const { error } = schema.validate(data);
+  if (error) {
+    setError(error.message.toLowerCase());
+    setLoading(false);
+    return;
+  }
+
   let res = await fetch(`https://soundly-peach.vercel.app/api/auth/signin`, {
     method: "POST",
     headers: {
