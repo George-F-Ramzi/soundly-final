@@ -2,6 +2,7 @@ import { db } from "@/db/db";
 import { Artists, Songs, Notification, Follower } from "@/db/schema";
 import pusherHandler from "@/utils/pusher";
 import { eq, sql } from "drizzle-orm";
+import Joi, { Schema } from "joi";
 import { jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
@@ -21,12 +22,26 @@ export async function POST(req: Request) {
   );
   let id = Number(payload.id);
 
-  try {
-    let { name, audio, image }: IBody = await req.json();
+  let data: IBody = await req.json();
 
-    let { insertId } = await db
-      .insert(Songs)
-      .values({ cover: image, song: audio, name, artist: id });
+  const schema: Schema = Joi.object({
+    name: Joi.string().required().min(1).max(16).label("name"),
+    audio: Joi.string().required().min(8).max(900).label("audio"),
+    image: Joi.string().required().min(8).max(900).label("image"),
+  });
+
+  const { error } = schema.validate(data);
+  if (error) {
+    return new Response("Something Wrong Happen" + error, { status: 400 });
+  }
+
+  try {
+    let { insertId } = await db.insert(Songs).values({
+      cover: data.image,
+      song: data.audio,
+      name: data.name,
+      artist: id,
+    });
 
     await db
       .update(Artists)
