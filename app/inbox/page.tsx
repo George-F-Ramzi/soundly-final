@@ -33,9 +33,11 @@ export default async function Inbox() {
     .where(eq(Notification.notifier, id))
     .leftJoin(Artists, eq(Artists.id, Notification.trigger));
 
+  data.reverse();
+
   return (
-    <div className="mt-[55px]">
-      <h2 className="text-white font-bold text-4xl">Inbox</h2>
+    <div className='mt-[55px]'>
+      <h2 className='text-white font-bold text-4xl'>Inbox</h2>
       {Array.isArray(data) && data.length ? (
         data.map((e, i) => {
           return (
