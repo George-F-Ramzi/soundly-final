@@ -71,6 +71,8 @@ export async function POST(req: Request) {
         message: "Uploaded A New Song",
         photo: artist[0].cover,
         username: artist[0].name,
+        song: insertId,
+        artist: artist[0].id,
       });
     }
 

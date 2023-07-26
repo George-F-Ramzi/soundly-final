@@ -47,6 +47,8 @@ export async function POST(req: Request) {
       message: "Commented On Your Song",
       photo: artist[0].cover,
       username: artist[0].name,
+      song: song_id,
+      artist: artist[0].id,
     });
 
     return new Response("Done", { status: 200 });

@@ -45,6 +45,8 @@ export async function POST(req: Request) {
       message: "Likes Your Song",
       photo: artist[0].cover,
       username: artist[0].name,
+      song: song[0].id,
+      artist: artist[0].id,
     });
 
     return new Response("Done", { status: 200 });
