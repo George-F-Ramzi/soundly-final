@@ -7,6 +7,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { RiFileMusicLine, RiImageLine, RiLoader2Fill } from "react-icons/ri";
 import { UploadButton } from "@/utils/uploadthing";
 import UploadButtonUI from "@/components/UI/uploadButton";
+import Joi, { Schema } from "joi";
+import { toast } from "react-toastify";
 
 export default function Upload() {
   const { token, setShow }: ITokenContext = useContext(TokenContext);
@@ -28,6 +30,20 @@ export default function Upload() {
   const handleUpload = async () => {
     setUploading(true);
     let data = { name, audio, image };
+
+    const schema: Schema = Joi.object({
+      name: Joi.string().required().min(1).max(16),
+      audio: Joi.string().required().min(8).max(900).label("audio"),
+      image: Joi.string().required().min(8).max(900).label("image"),
+    });
+
+    const { error } = schema.validate(data);
+    if (error) {
+      toast("Invalid Input", { type: "error" });
+      setUploading(false);
+      return;
+    }
+
     try {
       let res = await fetch(`https://soundly-peach.vercel.app/api/upload`, {
         method: "POST",
