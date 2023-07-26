@@ -43,6 +43,8 @@ export async function POST(req: Request) {
       message: "Started Following You",
       photo: artist[0].cover,
       username: artist[0].name,
+      song: null,
+      artist: artist[0].id,
     });
 
     return new Response("Done", { status: 200 });

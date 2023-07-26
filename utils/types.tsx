@@ -52,4 +52,6 @@ export interface IToast {
   message: string;
   username: string;
   photo: string;
+  song: number;
+  artist: number;
 }

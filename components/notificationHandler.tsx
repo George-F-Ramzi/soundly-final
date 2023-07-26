@@ -22,10 +22,25 @@ export default function NotificationHandler() {
     let channel = pusher.subscribe(String(me?.id));
 
     channel.bind("listen", (data: IToast) => {
+      const handleTo = () => {
+        if (data.message.includes("Started")) {
+          return `/artist/${data.artist}`;
+        }
+        if (data.message.includes("Commented")) {
+          return `/song/${data.song}`;
+        }
+
+        if (data.message.includes("Uploaded")) {
+          return `/song/${data.song}`;
+        }
+
+        return `/song/${data.song}`;
+      };
+
       toast(({ closeToast }) => (
         <div
           onClick={() => {
-            navigate.push("/inbox");
+            navigate.push(handleTo());
             closeToast && closeToast();
           }}
           className='flex h-full w-full cursor-pointer items-center'
