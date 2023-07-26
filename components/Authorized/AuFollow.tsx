@@ -25,7 +25,7 @@ export default function AuFollow({
       <button
         onClick={async () => {
           setIsFollowed(true);
-          await fetch(`http://localhost:3000/api/follow/${id}`, {
+          await fetch(`https://soundly-peach.vercel.app/api/follow/${id}`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -42,7 +42,7 @@ export default function AuFollow({
     <button
       onClick={async () => {
         setIsFollowed(false);
-        await fetch(`http://localhost:3000/api/unfollow/${id}`, {
+        await fetch(`https://soundly-peach.vercel.app/api/unfollow/${id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",

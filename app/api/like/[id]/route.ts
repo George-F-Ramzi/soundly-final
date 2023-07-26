@@ -1,5 +1,5 @@
 import { db } from "@/db/db";
-import { Like, Notification, Songs } from "@/db/schema";
+import { Artists, Like, Notification, Songs } from "@/db/schema";
 import pusherHandler from "@/utils/pusher";
 import { eq, sql } from "drizzle-orm";
 import { jwtVerify } from "jose";
@@ -23,12 +23,6 @@ export async function POST(req: Request) {
       return new Response("This Song Doesn't Exist", { status: 400 });
     }
 
-    await pusherHandler.trigger(
-      String(song[0].artist),
-      "listen",
-      "Hello Client"
-    );
-
     await db.insert(Like).values({ artist: id, song: song_id });
 
     await db
@@ -44,6 +38,14 @@ export async function POST(req: Request) {
         song: song_id,
       });
     }
+
+    let artist = await db.select().from(Artists).where(eq(Artists.id, id));
+
+    await pusherHandler.trigger(String(song[0].artist), "listen", {
+      message: "Likes Your Song",
+      photo: artist[0].cover,
+      username: artist[0].name,
+    });
 
     return new Response("Done", { status: 200 });
   } catch (error) {

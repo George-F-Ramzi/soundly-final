@@ -33,7 +33,7 @@ export default function AuComments({ comments, id }: Prop) {
     setData(clone);
     setInput("");
 
-    await fetch(`http://localhost:3000/api/comment/${id}`, {
+    await fetch(`https://soundly-peach.vercel.app/api/comment/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

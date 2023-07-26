@@ -1,5 +1,6 @@
 import { db } from "@/db/db";
-import { Comments, Notification, Songs } from "@/db/schema";
+import { Artists, Comments, Notification, Songs } from "@/db/schema";
+import pusherHandler from "@/utils/pusher";
 import { eq } from "drizzle-orm";
 import { jwtVerify } from "jose";
 import { cookies } from "next/headers";
@@ -39,6 +40,14 @@ export async function POST(req: Request) {
         song: song_id,
       });
     }
+
+    let artist = await db.select().from(Artists).where(eq(Artists.id, id));
+
+    await pusherHandler.trigger(String(song[0].artist), "listen", {
+      message: "Commented On Your Song",
+      photo: artist[0].cover,
+      username: artist[0].name,
+    });
 
     return new Response("Done", { status: 200 });
   } catch (error) {

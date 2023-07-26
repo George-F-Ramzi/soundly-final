@@ -29,7 +29,7 @@ export default function Upload() {
     setUploading(true);
     let data = { name, audio, image };
     try {
-      let res = await fetch(`http://localhost:3000/api/upload`, {
+      let res = await fetch(`https://soundly-peach.vercel.app/api/upload`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

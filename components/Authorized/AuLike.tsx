@@ -14,7 +14,7 @@ export default function AuLike({ liked, id }: { liked: boolean; id: number }) {
       <button
         onClick={async () => {
           setIsLiked(true);
-          await fetch(`http://localhost:3000/api/like/${id}`, {
+          await fetch(`https://soundly-peach.vercel.app/api/like/${id}`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -31,7 +31,7 @@ export default function AuLike({ liked, id }: { liked: boolean; id: number }) {
     <button
       onClick={async () => {
         setIsLiked(false);
-        await fetch(`http://localhost:3000/api/dislike/${id}`, {
+        await fetch(`https://soundly-peach.vercel.app/api/dislike/${id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",

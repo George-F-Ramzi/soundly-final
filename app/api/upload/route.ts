@@ -1,5 +1,6 @@
 import { db } from "@/db/db";
 import { Artists, Songs, Notification, Follower } from "@/db/schema";
+import pusherHandler from "@/utils/pusher";
 import { eq, sql } from "drizzle-orm";
 import { jwtVerify } from "jose";
 import { cookies } from "next/headers";
@@ -47,6 +48,16 @@ export async function POST(req: Request) {
     });
 
     await db.insert(Notification).values(notification_data);
+
+    let artist = await db.select().from(Artists).where(eq(Artists.id, id));
+
+    for (let index = 0; index < followers.length; index++) {
+      await pusherHandler.trigger(String(followers[index].notifier), "listen", {
+        message: "Uploaded A New Song",
+        photo: artist[0].cover,
+        username: artist[0].name,
+      });
+    }
 
     return NextResponse.json({ id });
   } catch (error) {

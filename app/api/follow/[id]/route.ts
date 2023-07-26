@@ -1,5 +1,6 @@
 import { db } from "@/db/db";
 import { Artists, Follower, Notification } from "@/db/schema";
+import pusherHandler from "@/utils/pusher";
 import { eq, sql } from "drizzle-orm";
 import { jwtVerify } from "jose";
 import { cookies } from "next/headers";
@@ -34,6 +35,14 @@ export async function POST(req: Request) {
       notifier: artist_id,
       trigger: id,
       song: null,
+    });
+
+    let artist = await db.select().from(Artists).where(eq(Artists.id, id));
+
+    await pusherHandler.trigger(String(artist_id), "listen", {
+      message: "Started Following You",
+      photo: artist[0].cover,
+      username: artist[0].name,
     });
 
     return new Response("Done", { status: 200 });
