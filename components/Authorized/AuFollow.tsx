@@ -25,14 +25,14 @@ export default function AuFollow({
       <button
         onClick={async () => {
           setIsFollowed(true);
-          await fetch(`https://soundly-peach.vercel.app/api/follow/${id}`, {
+          await fetch(`http://localhost:3000/api/follow/${id}`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
           });
         }}
-        className="px-10 py-2 rounded-full sm:px-12 sm:py-4 text-black font-bold bg-button"
+        className='px-10 py-2 rounded-full sm:px-12 sm:py-4 text-black font-bold bg-button'
       >
         Follow
       </button>
@@ -42,14 +42,14 @@ export default function AuFollow({
     <button
       onClick={async () => {
         setIsFollowed(false);
-        await fetch(`https://soundly-peach.vercel.app/api/unfollow/${id}`, {
+        await fetch(`http://localhost:3000/api/unfollow/${id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
           },
         });
       }}
-      className="px-10 py-2 bg-[#1A1A1A] border  border-default rounded-full sm:px-12 sm:py-4 text-white font-bold"
+      className='px-10 py-2 bg-[#1A1A1A] border  border-default rounded-full sm:px-12 sm:py-4 text-white font-bold'
     >
       Unfollow
     </button>

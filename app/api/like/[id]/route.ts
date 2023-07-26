@@ -1,5 +1,6 @@
 import { db } from "@/db/db";
 import { Like, Notification, Songs } from "@/db/schema";
+import pusherHandler from "@/utils/pusher";
 import { eq, sql } from "drizzle-orm";
 import { jwtVerify } from "jose";
 import { cookies } from "next/headers";
@@ -18,10 +19,15 @@ export async function POST(req: Request) {
 
   try {
     let song = await db.select().from(Songs).where(eq(Songs.id, song_id));
-
     if (song.length === 0) {
       return new Response("This Song Doesn't Exist", { status: 400 });
     }
+
+    await pusherHandler.trigger(
+      String(song[0].artist),
+      "listen",
+      "Hello Client"
+    );
 
     await db.insert(Like).values({ artist: id, song: song_id });
 
@@ -41,6 +47,7 @@ export async function POST(req: Request) {
 
     return new Response("Done", { status: 200 });
   } catch (error) {
+    console.log(error);
     return new Response("Something Wrong Happen", { status: 400 });
   }
 }

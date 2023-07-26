@@ -29,7 +29,7 @@ export default function Upload() {
     setUploading(true);
     let data = { name, audio, image };
     try {
-      let res = await fetch(`https://soundly-peach.vercel.app/api/upload`, {
+      let res = await fetch(`http://localhost:3000/api/upload`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -47,7 +47,7 @@ export default function Upload() {
 
   return (
     <div>
-      <h2 className="text-white mt-[55px] font-bold text-4xl mb-[15px] ">
+      <h2 className='text-white mt-[55px] font-bold text-4xl mb-[15px] '>
         Upload
       </h2>
       <form
@@ -55,7 +55,7 @@ export default function Upload() {
           e.preventDefault();
           handleUpload();
         }}
-        className="mt-4"
+        className='mt-4'
       >
         <input
           required
@@ -63,13 +63,13 @@ export default function Upload() {
           onChange={(e) => setName(e.currentTarget.value)}
           minLength={1}
           maxLength={16}
-          name="name"
-          placeholder="Enter Song Name"
-          className="h-14 w-full valid:text-white bg-transparent  cursor-pointer hover:border-active px-6 flex items-center text-para border border-default rounded-full"
+          name='name'
+          placeholder='Enter Song Name'
+          className='h-14 w-full valid:text-white bg-transparent  cursor-pointer hover:border-active px-6 flex items-center text-para border border-default rounded-full'
         />
-        <div className="h-14 w-full input-field relative border-dashed border bg-[#1A1A1A] valid:text-white mt-5 cursor-pointer hover:border-active flex items-center   border-default rounded-full">
+        <div className='h-14 w-full input-field relative border-dashed border bg-[#1A1A1A] valid:text-white mt-5 cursor-pointer hover:border-active flex items-center   border-default rounded-full'>
           <UploadButton
-            endpoint="audio"
+            endpoint='audio'
             onClientUploadComplete={(res) => {
               setLoadingAudio(false);
               if (res) setAudio(res[0].fileUrl);
@@ -82,7 +82,7 @@ export default function Upload() {
             }}
           />
           {!loadingAudio ? (
-            <section className="flex w-full h-14 items-center px-6">
+            <section className='flex w-full h-14 items-center px-6'>
               <p
                 className={`font-medium h-full w-full ${
                   audio ? "" : "pt-4"
@@ -92,22 +92,22 @@ export default function Upload() {
               </p>
               <RiFileMusicLine
                 size={24}
-                className="text-para absolute top-4 right-4"
+                className='text-para absolute top-4 right-4'
               />
             </section>
           ) : (
-            <span className="absolute flex items-center justify-center rounded-full font-bold  bg-green-400 top-0 left-0 h-full w-full">
+            <span className='absolute flex items-center justify-center rounded-full font-bold  bg-green-400 top-0 left-0 h-full w-full'>
               <RiLoader2Fill
-                className="mr-3 animate-spin"
+                className='mr-3 animate-spin'
                 size={24}
               />
               Uploading The Song
             </span>
           )}
         </div>
-        <div className="h-14 w-full input-field relative border-dashed border bg-[#1A1A1A] valid:text-white mt-5 cursor-pointer hover:border-active flex items-center   border-default rounded-full">
+        <div className='h-14 w-full input-field relative border-dashed border bg-[#1A1A1A] valid:text-white mt-5 cursor-pointer hover:border-active flex items-center   border-default rounded-full'>
           <UploadButton
-            endpoint="image"
+            endpoint='image'
             onClientUploadComplete={(res) => {
               setLoadingImage(false);
               if (res) setImage(res[0].fileUrl);
@@ -120,7 +120,7 @@ export default function Upload() {
             }}
           />
           {!loadingImage ? (
-            <section className="flex relative w-full h-14 items-center px-6">
+            <section className='flex relative w-full h-14 items-center px-6'>
               <p
                 className={`font-medium h-full w-full ${
                   image ? "" : "pt-4"
@@ -130,13 +130,13 @@ export default function Upload() {
               </p>
               <RiImageLine
                 size={24}
-                className="text-para absolute top-4 right-4"
+                className='text-para absolute top-4 right-4'
               />
             </section>
           ) : (
-            <span className="absolute flex items-center justify-center rounded-full font-bold  bg-green-400 top-0 left-0 h-full w-full">
+            <span className='absolute flex items-center justify-center rounded-full font-bold  bg-green-400 top-0 left-0 h-full w-full'>
               <RiLoader2Fill
-                className="mr-3 animate-spin"
+                className='mr-3 animate-spin'
                 size={24}
               />
               Uploading The Image

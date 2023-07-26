@@ -39,7 +39,7 @@ export default async function HandleSignIn({
     return;
   }
 
-  let res = await fetch(`https://soundly-peach.vercel.app/api/auth/signin`, {
+  let res = await fetch(`http://localhost:3000/api/auth/signin`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

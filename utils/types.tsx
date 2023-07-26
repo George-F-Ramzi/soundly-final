@@ -47,3 +47,9 @@ export interface IComment {
   name: string;
   cover: string;
 }
+
+export interface IToast {
+  message: string;
+  username: string;
+  photo: string;
+}

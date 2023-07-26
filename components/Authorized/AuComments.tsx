@@ -33,7 +33,7 @@ export default function AuComments({ comments, id }: Prop) {
     setData(clone);
     setInput("");
 
-    await fetch(`https://soundly-peach.vercel.app/api/comment/${id}`, {
+    await fetch(`http://localhost:3000/api/comment/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -53,11 +53,11 @@ export default function AuComments({ comments, id }: Prop) {
         <input
           required
           minLength={1}
-          name="details"
+          name='details'
           value={IValue}
           onChange={(e) => setInput(e.currentTarget.value)}
-          placeholder="What`s in your mind?"
-          className="h-14 w-full valid:text-white bg-transparent mt-4 mb-8 cursor-pointer hover:border-active px-6 flex items-center text-para border border-default rounded-full"
+          placeholder='What`s in your mind?'
+          className='h-14 w-full valid:text-white bg-transparent mt-4 mb-8 cursor-pointer hover:border-active px-6 flex items-center text-para border border-default rounded-full'
         />
       </form>
       {Array.isArray(data) && data.length ? (
