@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
-import Artist from 
+import Artist from "../app/artist/[id]/page";
 
-test("should equal render artist page", async () => {
+test("should render artist page", async () => {
   let params = { id: "1" };
   render(await Artist({ params }));
   screen.debug();
