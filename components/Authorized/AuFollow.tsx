@@ -23,6 +23,7 @@ export default function AuFollow({
   if (!isFollowed)
     return (
       <button
+        role='follow'
         onClick={async () => {
           setIsFollowed(true);
           await fetch(`https://soundly-peach.vercel.app/api/follow/${id}`, {
@@ -40,6 +41,7 @@ export default function AuFollow({
 
   return (
     <button
+      role='unFollow'
       onClick={async () => {
         setIsFollowed(false);
         await fetch(`https://soundly-peach.vercel.app/api/unfollow/${id}`, {

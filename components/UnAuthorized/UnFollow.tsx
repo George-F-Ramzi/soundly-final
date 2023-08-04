@@ -9,8 +9,9 @@ export default function UnFollow() {
 
   return (
     <button
+      role='follow'
       onClick={() => setShow && setShow(true)}
-      className="px-10 py-2 rounded-full sm:px-12 sm:py-4 text-black font-bold bg-button"
+      className='px-10 py-2 rounded-full sm:px-12 sm:py-4 text-black font-bold bg-button'
     >
       Follow
     </button>
