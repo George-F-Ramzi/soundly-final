@@ -7,6 +7,6 @@ export default defineConfig({
   test: {
     globals: true,
     environment: "jsdom",
-    setupFiles: "./vite.setup.js",
+    setupFiles: ["./vite.setup.js", "dotenv/config"],
   },
 });
