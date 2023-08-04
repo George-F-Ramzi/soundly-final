@@ -89,28 +89,35 @@ export default async function Song({ params }: { params: { id: string } }) {
     .leftJoin(Artists, eq(Comments.artist, Artists.id));
 
   return (
-    <div className="mt-16">
-      <section className="flex">
+    <div className='mt-16'>
+      <section className='flex'>
         <Image
-          className="min-w-[100px] border border-default sm:min-w-[200px] sm:h-[200px] aspect-square rounded-full h-[100px]"
+          role='song__cover'
+          className='min-w-[100px] border border-default sm:min-w-[200px] sm:h-[200px] aspect-square rounded-full h-[100px]'
           height={100}
           width={100}
           src={song[0].cover!}
-          alt="Song Cover"
+          alt='Song Cover'
         />
-        <div className="sm:ml-9 ml-[15px]">
-          <h2 className="text-para font-bold sm:text-base sm:mb-[11px] text-sm mb-2">
+        <div className='sm:ml-9 ml-[15px]'>
+          <h2 className='text-para font-bold sm:text-base sm:mb-[11px] text-sm mb-2'>
             Song
           </h2>
-          <h2 className="text-white font-bold sm:mb-1 mb-2 sm:text-4xl text-2xl">
+          <h2
+            role='song__name'
+            className='text-white font-bold sm:mb-1 mb-2 sm:text-4xl text-2xl'
+          >
             {song[0].name!}
           </h2>
-          <div className="flex  mb-[29px]">
-            <p className="text-xs sm:text-base  text-para font-medium">
+          <div className='flex  mb-[29px]'>
+            <p
+              role='song__likes'
+              className='text-xs sm:text-base  text-para font-medium'
+            >
               {song[0].likes!} Likes
             </p>
           </div>
-          <div className="flex -ml-[5px] sm:ml-[5px]">
+          <div className='flex -ml-[5px] sm:ml-[5px]'>
             <Play song={song[0] as ISong} />
             {!authorized ? (
               <UnLike />
@@ -123,7 +130,7 @@ export default async function Song({ params }: { params: { id: string } }) {
           </div>
         </div>
       </section>
-      <h2 className="text-white mt-[55px] font-bold text-4xl">Comments</h2>
+      <h2 className='text-white mt-[55px] font-bold text-4xl'>Comments</h2>
       {!authorized ? (
         <UnComments comments={comments as IComment[]} />
       ) : (

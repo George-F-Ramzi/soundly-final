@@ -9,8 +9,9 @@ export default function UnLike() {
 
   return (
     <button
+      role='Like'
       onClick={() => setShow && setShow(true)}
-      className="px-10 py-2 border ml-4 sm:ml-5 border-default rounded-full sm:px-12 sm:py-4 text-white font-bold bg-transparent"
+      className='px-10 py-2 border ml-4 sm:ml-5 border-default rounded-full sm:px-12 sm:py-4 text-white font-bold bg-transparent'
     >
       Like
     </button>

@@ -12,7 +12,7 @@ let data: IArtist = {
   songs: 2,
 };
 
-describe("Song Card", () => {
+describe("Artist Card", () => {
   it("Should Render The Provided Data", async () => {
     render(<ArtistCard data={data} />);
 

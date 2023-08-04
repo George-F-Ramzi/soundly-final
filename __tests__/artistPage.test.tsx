@@ -7,7 +7,7 @@ async function resolvedComponent(Component, props) {
   return () => ComponentResolved;
 }
 
-describe("Artist", () => {
+describe("Artist Page", () => {
   it("Should Contain The Follow Button", async () => {
     const Page = await resolvedComponent(Artist, {
       params: { id: "1" },
